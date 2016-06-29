@@ -62,12 +62,16 @@
     <div class="list-group">
 
       <a class="list-group-item">
-        <h4 class="list-group-item-heading">
-          {{ fact.title }}
-        </h4>
-<!--        <h4 v-else class="list-group-item-heading">
-          {{ fact.name }}
-        </h4>-->
+        <div v-if="films">
+          <h4 class="list-group-item-heading">
+            {{ fact.title }}
+          </h4>
+        </div>
+        <div v-else>
+          <h4  class="list-group-item-heading">
+            {{ fact.name }}
+          </h4>
+        </div>
       </a>
 
     </div>

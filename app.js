@@ -38,7 +38,8 @@ new Vue({
     facts: '',
     fact: {},
     value: 'films',
-    types: ["films", "people", "planets", "vehicles", "starships", "species"]
+    types: ["films", "people", "planets", "vehicles", "starships", "species"],
+    films: true
   },
   ready: function() {
     //begin with getting the facts from the api
@@ -49,23 +50,30 @@ new Vue({
     updateFact: function() {
       facts = JSON.parse(this.facts);
       random = Math.floor(Math.random() * facts.count);
-      console.log(random);
-      this.$set('fact', facts.results[random]);
+      this.$set('fact', facts.results[5]);
+      console.log(this.fact);
     },
+
 
     getFacts: function(type) {
       if(type === 'random'){
         random = Math.floor(Math.random() * this.types.length);
         type = this.types[random];
       }
+      if(type === 'films'){
+        this.films = true;
+      }else{
+        this.films = false;
+      }
       // construct the api url
       url = 'http://swapi.co/api/' + type;
 
       this.$http.get(url).then(function(facts) {
         this.$set('facts', facts.body);
-        //console.log(JSON.parse(facts.body));
+        console.log(JSON.parse(facts.body));
         console.log('Got facts for ' + type);
       });
+      console.log(this.films);
     }
   }
 });
