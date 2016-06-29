@@ -1,0 +1,11 @@
+.btn-group{
+  data-toggle="buttons"
+}
+#radioBtn .notActive{
+    color: #3276b1;
+    background-color: #fff;
+}
+label.btn > input[type='radio']
+{
+    display: none;
+}

@@ -1,0 +1,82 @@
+<!-- index.html -->
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Star Wars facts</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="test.css">
+</head>
+<body id="main">
+
+  <!-- navigation bar -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <a href="#" class="navbar-brand">Star Wars facts</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="btn-group" data-toggle="button" v-radio="value">
+      <label class="btn btn-primary">
+        <input type="radio" name="options" autocomplete="off" value="films" v-on:click="getFacts('films')" checked> Films
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" autocomplete="off" value="people" v-on:click="getFacts('people')"> People
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" autocomplete="off" value="planets" v-on:click="getFacts('planets')"> Planets
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" autocomplete="off" value="vehicles" v-on:click="getFacts('vehicles')"> Vehicles
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" autocomplete="off" value="starships" v-on:click="getFacts('starships')"> Starships
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" autocomplete="off" value="species" v-on:click="getFacts('species')"> Species
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" autocomplete="off" value="random" v-on:click="getFacts('random')"> Random
+      </label>
+    </div>
+    <h3> Result: {{value}} </h3>
+  </div>
+<!--  <div class="container">
+      <div class="btn-group" data-toggle="buttons" v-radio="value">
+        <label class="btn btn-primary active">
+          <input type="radio" name="options" id="option1" autocomplete="off" value="First" checked> Radio 1 (preselected)
+        </label>
+         <label class="btn btn-primary"> <input type="radio" autocomplete="off" value="R2" />Radio 2</label>
+         <label class="btn btn-primary"> <input type="radio" autocomplete="off" value="R3" />Radio 3</label>
+      </div>
+     <h3> Result: {{value}} </h3>
+  </div> -->
+
+  <!-- main body of our application -->
+  <div class="container">
+    <button v-on:click="updateFact">Test</button>
+    <div class="list-group">
+
+      <a class="list-group-item">
+        <h4 class="list-group-item-heading">
+          {{ fact.title }}
+        </h4>
+<!--        <h4 v-else class="list-group-item-heading">
+          {{ fact.name }}
+        </h4>-->
+      </a>
+
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="node_modules/vue/dist/vue.js"></script>
+  <script src="node_modules/vue-resource/dist/vue-resource.js"></script>
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
