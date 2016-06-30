@@ -35,26 +35,17 @@ Vue.directive('radio', {
 new Vue({
   el: '#main',
   data: {
-    facts: '',
     fact: {},
     value: 'films',
     types: ["films", "people", "planets", "vehicles", "starships", "species"],
+    counts: {"films": 7, "people": 87, "planets": 61, "starships": 37, "vehicles": 39, "species": 37},
     films: true
   },
   ready: function() {
-    //begin with getting the facts from the api
     this.getFacts('films');
   },
 
   methods: {
-    updateFact: function() {
-      facts = JSON.parse(this.facts);
-      random = Math.floor(Math.random() * facts.count);
-      this.$set('fact', facts.results[5]);
-      console.log(this.fact);
-    },
-
-
     getFacts: function(type) {
       if(type === 'random'){
         random = Math.floor(Math.random() * this.types.length);
@@ -65,15 +56,26 @@ new Vue({
       }else{
         this.films = false;
       }
+      random = (Math.floor(Math.random() * this.counts[type]) + 1);
+
       // construct the api url
-      url = 'http://swapi.co/api/' + type;
+      url = 'http://swapi.co/api/' + type + '/' + random;
 
       this.$http.get(url).then(function(facts) {
-        this.$set('facts', facts.body);
-        console.log(JSON.parse(facts.body));
-        console.log('Got facts for ' + type);
+        json = JSON.parse(facts.body);
+        for (var field in json){
+          if(json.hasOwnProperty(field)){
+            newfield = field.replace('_', ' ');
+            newfield = newfield.charAt(0).toUpperCase() + newfield.slice(1); 
+            json[newfield] = json[field];
+            delete json[field];
+          }
+        }
+        this.$set('fact', json);
+        console.log('Got facts for ' + type + ' and number ' + random);
+      }).catch(function(data) {
+        this.getFacts(type);
       });
-      console.log(this.films);
     }
   }
 });
