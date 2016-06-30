@@ -39,7 +39,8 @@ new Vue({
     value: 'films',
     types: ["films", "people", "planets", "vehicles", "starships", "species"],
     counts: {"films": 7, "people": 87, "planets": 61, "starships": 37, "vehicles": 39, "species": 37},
-    films: true
+    films: true,
+    failcounter: 0
   },
   ready: function() {
     this.getFacts('films');
@@ -60,7 +61,6 @@ new Vue({
 
       // construct the api url
       url = 'http://swapi.co/api/' + type + '/' + random;
-
       this.$http.get(url).then(function(facts) {
         json = JSON.parse(facts.body);
         for (var field in json){
@@ -74,7 +74,13 @@ new Vue({
         this.$set('fact', json);
         console.log('Got facts for ' + type + ' and number ' + random);
       }).catch(function(data) {
-        this.getFacts(type);
+        if(this.failcounter < 5){
+          this.failcounter++;
+          this.getFacts(type);
+        }else{
+          console.log("Failed to contact API");
+          this.failcounter = 0;
+        }
       });
     }
   }
