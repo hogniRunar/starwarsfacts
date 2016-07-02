@@ -47,21 +47,15 @@ new Vue({
   },
 
   methods: {
-/*    fetchUrl: function(url) {
+    fetchUrl: function(url) {
+      console.log(url);
       this.$http.get(url).then(function(response) {
-        return JSON.parse(response.body);
-      }).catch(function(data) {
-        console.log(data);
-        if(this.failcounter < 5){
-          this.failcounter++;
-          this.fetchUrl(url);
-        }else{
-          console.log("Failed to contact API");
-          this.failcounter = 0;
-        }
+        var json = JSON.parse(response.body);
+        console.log(json['name']);
+        return json['name'];
       });
     },
-*/
+
     resolveUrls: function(array) {
       var returnarray = [];
       for(var i = 0; i < array.length; i++) {
@@ -111,7 +105,10 @@ new Vue({
             newfield = newfield.charAt(0).toUpperCase() + newfield.slice(1);
             json[newfield] = json[field];
             delete json[field];
-            //console.log(newfield);
+            if(newfield === 'Homeworld' && json[newfield].indexOf('http') > -1) {
+              var homeworld = [json[newfield]];
+              json[newfield] = homeworld;
+            }
             if(json[newfield].constructor === Array) {
               if(json[newfield].length === 0) {
                 delete json[newfield];
