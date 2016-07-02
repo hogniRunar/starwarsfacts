@@ -28,7 +28,9 @@ h1{
   font-family: "Lucida Console", Monaco, monospace;
 }
 .list-group{
-  text-align: center;
+  text-align: left;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 ul{
   margin: auto;
