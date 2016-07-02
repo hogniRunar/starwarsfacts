@@ -4,22 +4,16 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Star Wars facts</title>
+  <title>Random Star Wars Facts</title>
 
   <!-- CSS -->
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="test.css">
 </head>
 <body id="main">
-  <!-- navigation bar -->
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <a href="#" class="navbar-brand">Star Wars facts</a>
-    </div>
-  </nav>
-
-  <div class="container">
-    <div class="btn-group" data-toggle="button" v-radio="value">
+  <div class="container col-md-offset-2">
+    <h1>Random Star Wars Facts</h1>
+    <div class="btn-group buttons" data-toggle="button" v-radio="value">
       <label class="btn btn-primary">
         <input type="radio" name="options" autocomplete="off" value="films" v-on:click="getFacts('films')" checked> Films
       </label>
@@ -41,15 +35,12 @@
     </div>
 
     <div class="list-group">
-     <a class="list-group-item">
         <ul id="list-1">
           <li v-for="(fieldname, value) in fact">
             <h3 class="list-group-item-heading h3list" v-if="value">{{ fieldname }}</h3>
             <h4 class="list-group-item-text h4list">{{ value }}</h4>
           </li>
         </ul>
-      </a>
-
     </div>
   </div>
 
