@@ -69,7 +69,7 @@ new Vue({
           json = JSON.parse(response.body);
           if(json.hasOwnProperty('name')){
             returnarray.push(' ' + json['name']);
-          }else {
+           }else {
             returnarray.push(' ' + json['title']);
           }
         })
@@ -104,9 +104,11 @@ new Vue({
             json[newfield] = json[field];
             delete json[field];
             if(json[newfield].constructor === Array){
-              //console.log(json[newfield]);
-              json[newfield] = this.resolveUrls(json[newfield]);
-              //console.log(json[newfield]);
+              if(json[newfield].length === 0){
+                delete json[newfield];
+              }else{
+                json[newfield] = this.resolveUrls(json[newfield]);
+              }
             }
           }
         }
