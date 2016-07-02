@@ -1,6 +1,5 @@
-To install
+A small webpage to display information about Star Wars things. It is written in VueJS to uses the http://swapi.co API
 
-git clone and then run: 
-
+To install run the following commands:
+git clone git@github.com:hogniRunar/starwarsfacts.git
 npm install
-
