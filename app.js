@@ -43,7 +43,7 @@ new Vue({
     failcounter: 0
   },
   ready: function() {
-    this.getFacts('films');
+    this.getFacts(this.value);
   },
 
   methods: {
@@ -64,28 +64,36 @@ new Vue({
 */
     resolveUrls: function(array) {
       var returnarray = [];
-      for(var i = 0; i < array.length; i++){
+      for(var i = 0; i < array.length; i++) {
         this.$http.get(array[i]).then(function(response) {
           json = JSON.parse(response.body);
-          if(json.hasOwnProperty('name')){
+          if(json.hasOwnProperty('name')) {
             returnarray.push(' ' + json['name']);
-           }else {
+          }else {
             returnarray.push(' ' + json['title']);
           }
-        })
+        });
       }
-      console.log(returnarray);
       return returnarray;
     },
 
+    setUpdateCycle: function() {
+      //var self = this;
+      (function Forever() {
+        console.log(this.value);
+        this.getFacts(this.value);
+        setTimeout(Forever,60000);
+      })();
+    },
+
     getFacts: function(type) {
-      if(type === 'random'){
+      if(type === 'random') {
         random = Math.floor(Math.random() * this.types.length);
         type = this.types[random];
       }
-      if(type === 'films'){
+      if(type === 'films') {
         this.films = true;
-      }else{
+      }else {
         this.films = false;
       }
       random = (Math.floor(Math.random() * this.counts[type]) + 1);
@@ -97,16 +105,17 @@ new Vue({
         delete json['created'];
         delete json['edited'];
         delete json['url'];
-        for (var field in json){
-          if(json.hasOwnProperty(field)){
-            newfield = field.replace('_', ' ');
+        for (var field in json) {
+          if(json.hasOwnProperty(field)) {
+            newfield = field.replace(/_/g, ' ');
             newfield = newfield.charAt(0).toUpperCase() + newfield.slice(1);
             json[newfield] = json[field];
             delete json[field];
-            if(json[newfield].constructor === Array){
-              if(json[newfield].length === 0){
+            //console.log(newfield);
+            if(json[newfield].constructor === Array) {
+              if(json[newfield].length === 0) {
                 delete json[newfield];
-              }else{
+              }else {
                 json[newfield] = this.resolveUrls(json[newfield]);
               }
             }
@@ -114,11 +123,12 @@ new Vue({
         }
         this.$set('fact', json);
         console.log('Got facts for ' + type + ' and number ' + random);
+        //this.setUpdateCycle();
       }).catch(function(data) {
-        if(this.failcounter < 5){
+        if(this.failcounter < 5) {
           this.failcounter++;
           this.getFacts(type);
-        }else{
+        }else {
           console.log("Failed to contact API");
           this.failcounter = 0;
         }
