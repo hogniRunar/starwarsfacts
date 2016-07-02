@@ -2,7 +2,18 @@
     color: #3276b1;
     background-color: #fff;
 }
-label.btn > input[type='radio']
-{
+label.btn > input[type='radio']{
     display: none;
+}
+.h3list{
+  font-size: 20px;
+}
+.h4list{
+  margin-top: -5px;
+  font-size: 16px;
+}
+
+li{
+  list-style: none;
+  margin-bottom: 10px;
 }

@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="test.css">
 </head>
 <body id="main">
-
   <!-- navigation bar -->
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -43,35 +42,13 @@
         <input type="radio" name="options" autocomplete="off" value="random" v-on:click="getFacts('random')"> Random
       </label>
     </div>
-  </div>
-<!--  <div class="container">
-      <div class="btn-group" data-toggle="buttons" v-radio="value">
-        <label class="btn btn-primary active">
-          <input type="radio" name="options" id="option1" autocomplete="off" value="First" checked> Radio 1 (preselected)
-        </label>
-         <label class="btn btn-primary"> <input type="radio" autocomplete="off" value="R2" />Radio 2</label>
-         <label class="btn btn-primary"> <input type="radio" autocomplete="off" value="R3" />Radio 3</label>
-      </div>
-     <h3> Result: {{value}} </h3>
-  </div> -->
 
-  <!-- main body of our application -->
-  <div class="container">
     <div class="list-group">
      <a class="list-group-item">
-        <div v-if="films">
-          <h4 class="list-group-item-heading">
-            {{ fact.title }}
-          </h4>
-        </div>
-        <div v-else>
-          <h4  class="list-group-item-heading">
-            {{ fact.name }}
-          </h4>
-        </div> 
-        <ul id="example-1">
+        <ul id="list-1">
           <li v-for="(fieldname, value) in fact">
-            {{ fieldname }}: {{ value }}
+            <h3 class="list-group-item-heading h3list" v-if="value">{{ fieldname }}</h3>
+            <h4 class="list-group-item-text h4list">{{ value }}</h4>
           </li>
         </ul>
       </a>

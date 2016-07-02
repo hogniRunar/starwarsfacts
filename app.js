@@ -47,7 +47,7 @@ new Vue({
   },
 
   methods: {
-    fetchUrl: function(url) {
+/*    fetchUrl: function(url) {
       this.$http.get(url).then(function(response) {
         return JSON.parse(response.body);
       }).catch(function(data) {
@@ -61,8 +61,21 @@ new Vue({
         }
       });
     },
-    checkForUrls: function(json) {
-      //variable.constructor === Array
+*/
+    resolveUrls: function(array) {
+      var returnarray = [];
+      for(var i = 0; i < array.length; i++){
+        this.$http.get(array[i]).then(function(response) {
+          json = JSON.parse(response.body);
+          if(json.hasOwnProperty('name')){
+            returnarray.push(' ' + json['name']);
+          }else {
+            returnarray.push(' ' + json['title']);
+          }
+        })
+      }
+      console.log(returnarray);
+      return returnarray;
     },
 
     getFacts: function(type) {
@@ -90,8 +103,11 @@ new Vue({
             newfield = newfield.charAt(0).toUpperCase() + newfield.slice(1);
             json[newfield] = json[field];
             delete json[field];
-
-            this.checkForUrls(json[newfield]);
+            if(json[newfield].constructor === Array){
+              //console.log(json[newfield]);
+              json[newfield] = this.resolveUrls(json[newfield]);
+              //console.log(json[newfield]);
+            }
           }
         }
         this.$set('fact', json);
