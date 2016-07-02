@@ -47,6 +47,24 @@ new Vue({
   },
 
   methods: {
+    fetchUrl: function(url) {
+      this.$http.get(url).then(function(response) {
+        return JSON.parse(response.body);
+      }).catch(function(data) {
+        console.log(data);
+        if(this.failcounter < 5){
+          this.failcounter++;
+          this.fetchUrl(url);
+        }else{
+          console.log("Failed to contact API");
+          this.failcounter = 0;
+        }
+      });
+    },
+    checkForUrls: function(json) {
+      //variable.constructor === Array
+    },
+
     getFacts: function(type) {
       if(type === 'random'){
         random = Math.floor(Math.random() * this.types.length);
@@ -63,12 +81,17 @@ new Vue({
       url = 'http://swapi.co/api/' + type + '/' + random;
       this.$http.get(url).then(function(facts) {
         json = JSON.parse(facts.body);
+        delete json['created'];
+        delete json['edited'];
+        delete json['url'];
         for (var field in json){
           if(json.hasOwnProperty(field)){
             newfield = field.replace('_', ' ');
-            newfield = newfield.charAt(0).toUpperCase() + newfield.slice(1); 
+            newfield = newfield.charAt(0).toUpperCase() + newfield.slice(1);
             json[newfield] = json[field];
             delete json[field];
+
+            this.checkForUrls(json[newfield]);
           }
         }
         this.$set('fact', json);
