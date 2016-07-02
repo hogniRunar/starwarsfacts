@@ -37,8 +37,8 @@ new Vue({
   data: {
     fact: {},
     value: 'films',
-    types: ["films", "people", "planets", "vehicles", "starships", "species"],
-    counts: {"films": 7, "people": 87, "planets": 61, "starships": 37, "vehicles": 39, "species": 37},
+    types: ["films", "people", "planets", "vehicles", "species"],
+    counts: {"films": 7, "people": 87, "planets": 61, "vehicles": 39, "species": 37},
     films: true,
     failcounter: 0
   },
@@ -99,6 +99,7 @@ new Vue({
         delete json['created'];
         delete json['edited'];
         delete json['url'];
+        json['category'] = type.charAt(0).toUpperCase() + type.slice(1);
         for (var field in json) {
           if(json.hasOwnProperty(field)) {
             newfield = field.replace(/_/g, ' ');
