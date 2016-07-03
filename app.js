@@ -41,6 +41,14 @@ new Vue({
       return returnarray;
     },
 
+    formatDate: function  (input) {
+      var datePart = input.match(/\d+/g),
+      year = datePart[0], // get only two digits
+      month = datePart[1], day = datePart[2];
+
+      return day+'/'+month+'/'+year;
+    },
+
     getFacts: function(type) {
       this.value = type;
       if(type === 'random') {
@@ -68,9 +76,36 @@ new Vue({
             newfield = newfield.charAt(0).toUpperCase() + newfield.slice(1);
             json[newfield] = json[field];
             delete json[field];
-            if(newfield === 'Homeworld' && json[newfield].indexOf('http') > -1) {
-              var homeworld = [json[newfield]];
-              json[newfield] = homeworld;
+            if(this.value === 'people') {
+              if(newfield === 'Homeworld' && json[newfield].indexOf('http') > -1) {
+                var homeworld = [json[newfield]];
+                json[newfield] = homeworld;
+              }
+              if(newfield === 'Height' && json[newfield] !== 'unknown') {
+                json[newfield] = json[newfield] + ' cm';
+              }
+              if(newfield === 'Mass' && json[newfield] !== 'unknown') {
+                json[newfield] = json[newfield] + ' kg';
+              }
+            }
+            if(this.value === 'planets') {
+              if(newfield === 'Rotation period' && json[newfield] !== 'unknown') {
+                json[newfield] = json[newfield] + ' hours';
+              }
+              if(newfield === 'Orbital period' && json[newfield] !== 'unknown') {
+                json[newfield] = json[newfield] + ' days';
+              }
+              if(newfield === 'Diameter' && json[newfield] !== 'unknown') {
+                json[newfield] = json[newfield].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' km';
+              }
+              if(newfield === 'Population' && json[newfield] !== 'unknown') {
+                json[newfield] = json[newfield].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+              }
+            }
+            if(this.value === 'films') {
+              if(newfield === 'Release date') {
+                json[newfield] = this.formatDate(json[newfield]);
+              }
             }
             if(json[newfield].constructor === Array) {
               if(json[newfield].length === 0) {
