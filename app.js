@@ -3,6 +3,7 @@ new Vue({
   data: {
     fact: {},
     value: 'films',
+    // TODO: get types and count from api and merge types and counts
     types: ["films", "people", "planets", "vehicles", "species"],
     counts: {"films": 7, "people": 87, "planets": 61, "vehicles": 39, "species": 37},
     films: true,
@@ -10,18 +11,18 @@ new Vue({
   },
   ready: function() {
     this.getFacts(this.value);
-
+    // TODO: reset timeout on button press (see clearTimeout)
     setInterval(function () {
       this.getFacts(this.value);
     }.bind(this), 60000);
   },
 
   methods: {
+    // TODO: error handling for GET. Make function more dynamic (not only check 'name')
     fetchUrl: function(url) {
       console.log(url);
       this.$http.get(url).then(function(response) {
         var json = JSON.parse(response.body);
-        console.log(json['name']);
         return json['name'];
       });
     },
@@ -43,7 +44,7 @@ new Vue({
 
     formatDate: function  (input) {
       var datePart = input.match(/\d+/g),
-      year = datePart[0], // get only two digits
+      year = datePart[0],
       month = datePart[1], day = datePart[2];
 
       return day+'/'+month+'/'+year;
@@ -62,24 +63,21 @@ new Vue({
       }
       random = (Math.floor(Math.random() * this.counts[type]) + 1);
 
-      // construct the api url
       url = 'http://swapi.co/api/' + type + '/' + random;
       this.$http.get(url).then(function(facts) {
+        // TODO: change json to array as the order is guaranteed that way
         var json = {};
-        json['category'] = type.charAt(0).toUpperCase() + type.slice(1);
+        json['Category'] = type.charAt(0).toUpperCase() + type.slice(1);
+
         response = JSON.parse(facts.body);
 
-        for (var field in response) { json[field] = response[field]; }
-        delete json['created'];
-        delete json['edited'];
-        delete json['url'];
-
-        for (var field in json) {
-          if(json.hasOwnProperty(field)) {
-            newfield = field.replace(/_/g, ' ');
+        var ignore = ['created', 'edited', 'url'];
+        for (var field in response) {
+          if(response.hasOwnProperty(field) && $.inArray(field, ignore) === -1) {
+            var newfield = field.replace(/_/g, ' ');
             newfield = newfield.charAt(0).toUpperCase() + newfield.slice(1);
-            json[newfield] = json[field];
-            delete json[field];
+            json[newfield] = response[field];
+            // TODO: make seperate method to run all these checks
             if(newfield === 'Homeworld' && json[newfield].indexOf('http') > -1) {
               var homeworld = [json[newfield]];
               json[newfield] = homeworld;
