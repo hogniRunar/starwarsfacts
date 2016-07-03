@@ -1,0 +1,55 @@
+### Hello DarknessInUs, this is your secret santa speaking:
+
+You specifically said that you didn't want stuff that you could buy yourself
+and that you wanted something that _I_ would want to give you. After reading your
+description and bio (and reddit stalking you) combined with the fact that you
+are a programmer who likes javascript (took a small leap here), I decided to
+program something for you.
+
+The funny thing is that I am also a computer scientist but I work as an
+operations engineer so I don't get to do a lot of programming. I tend to work
+more with stuff like bash scripts and maybe some python stuff.
+
+But like you, I have also been trying to increase my programming skills in
+various languages. But I find the hardest thing, in regards to trying to become
+a better programmer, is finding stuff to program. I find it insanely hard to
+think of something to practice on and even after I find something I never seem
+to be able to start getting stuff done.
+
+Assuming you might have the some problems I decided to do this:
+
+As we both share love of all things Star Wars I decided to make a small frontend
+for the [swapi.co API](http://swapi.co) which would display random facts from
+the Star Wars universe. I thought it could be cool to have a screen somewhere in
+your living room or somewhere, where you could display this info. I used the
+VueJS framework (which I have never used before) in order to make a small SPA.
+VueJS is like a lightweight AngularJS from what I can tell.
+
+The catch is that I made it so it works in the very basic sense of the word.
+That is, it functions now but it doesn't look pretty and it is poorly optimized.
+
+### So my gift to you:
+
+Practice your JavaScript programming skills by improving upon this very basic
+webpage to make it into something very awesome.
+
+In the source code, I have written a couple of TODOs for you to take a look at.
+
+Other ideas on improving the webpage:
+
+- Display the counter for the refresh (currently set to 60 seconds)
+- Some information is provided in URLs and then resolved to the names behind
+  those URLs. A good idea would be to make those names clickable which would
+  fetch the URLs that are behind it. (for ex. if you see Luke's name under a
+  specific film, you could click his name and that would fetch his information).
+- The CSS needs major work and this could be made to look a lot cooler.
+- Get image references for all the things. (there is a work in progress feature
+  for the API which addresses this but it could take a while)
+- Have a menu on the side for "popular stuff" which would fetch the information
+  for that item (could have a list of characters, planets, films etc.).
+- General optimization as I am not the strongest JavaScript programmer :)
+- Clean up the code
+- What eeever you can think of
+
+## This is a gift that I would love to get and I sincerely hope you feel the same way
+# Happy Arbitrary day!
