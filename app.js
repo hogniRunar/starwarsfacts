@@ -65,22 +65,26 @@ new Vue({
       // construct the api url
       url = 'http://swapi.co/api/' + type + '/' + random;
       this.$http.get(url).then(function(facts) {
-        json = JSON.parse(facts.body);
+        var json = {};
+        json['category'] = type.charAt(0).toUpperCase() + type.slice(1);
+        response = JSON.parse(facts.body);
+
+        for (var field in response) { json[field] = response[field]; }
         delete json['created'];
         delete json['edited'];
         delete json['url'];
-        json['category'] = type.charAt(0).toUpperCase() + type.slice(1);
+
         for (var field in json) {
           if(json.hasOwnProperty(field)) {
             newfield = field.replace(/_/g, ' ');
             newfield = newfield.charAt(0).toUpperCase() + newfield.slice(1);
             json[newfield] = json[field];
             delete json[field];
-            if(this.value === 'people') {
-              if(newfield === 'Homeworld' && json[newfield].indexOf('http') > -1) {
-                var homeworld = [json[newfield]];
-                json[newfield] = homeworld;
-              }
+            if(newfield === 'Homeworld' && json[newfield].indexOf('http') > -1) {
+              var homeworld = [json[newfield]];
+              json[newfield] = homeworld;
+            }
+            if(this.value === 'people' || this.value === 'random') {
               if(newfield === 'Height' && json[newfield] !== 'unknown') {
                 json[newfield] = json[newfield] + ' cm';
               }
@@ -88,7 +92,7 @@ new Vue({
                 json[newfield] = json[newfield] + ' kg';
               }
             }
-            if(this.value === 'planets') {
+            if(this.value === 'planets' || this.value === 'random') {
               if(newfield === 'Rotation period' && json[newfield] !== 'unknown') {
                 json[newfield] = json[newfield] + ' hours';
               }
@@ -102,7 +106,7 @@ new Vue({
                 json[newfield] = json[newfield].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
               }
             }
-            if(this.value === 'films') {
+            if(this.value === 'films' || this.value === 'random') {
               if(newfield === 'Release date') {
                 json[newfield] = this.formatDate(json[newfield]);
               }
