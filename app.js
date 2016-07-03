@@ -10,6 +10,10 @@ new Vue({
   },
   ready: function() {
     this.getFacts(this.value);
+
+    setInterval(function () {
+      this.getFacts(this.value);
+    }.bind(this), 60000);
   },
 
   methods: {
@@ -35,15 +39,6 @@ new Vue({
         });
       }
       return returnarray;
-    },
-
-    setUpdateCycle: function() {
-      //var self = this;
-      (function Forever() {
-        console.log(this.value);
-        this.getFacts(this.value);
-        setTimeout(Forever,60000);
-      })();
     },
 
     getFacts: function(type) {
