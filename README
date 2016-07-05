@@ -1,6 +1,9 @@
-A small webpage to display information about Star Wars things. It is written in VueJS and uses the http://swapi.co API
+A small webpage to display information about Star Wars things. It is written in
+VueJS and uses the http://swapi.co API.
 
-To setup, run the following commands:
+
+
+To setup, run the following commands and make sure you have nodejs installed:
 git clone git@github.com:hogniRunar/starwarsfacts.git
 cd starwarsfacts/
 npm install
