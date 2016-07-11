@@ -3,8 +3,8 @@
 You specifically said that you didn't want stuff that you could buy yourself
 and that you wanted something that I would want to give you. After reading your
 description and bio (and reddit stalking you) combined with the fact that you
-are a programmer who likes javascript (took a small leap here), I decided to
-program something for you.
+are a programmer who is trying to become better at JavaScript (took a small leap
+here), I decided to program something for you that you could practice on.
 
 The funny thing is that I am also a computer scientist but I work as an
 operations engineer so I don't get to do a lot of programming. I tend to work
@@ -14,9 +14,10 @@ But like you, I have also been trying to increase my programming skills in
 various languages. But I find the hardest thing, in regards to trying to become
 a better programmer, is finding stuff to program. I find it insanely hard to
 think of something to practice on and even after I find something I never seem
-to be able to start getting stuff done.
+to be able to start getting stuff done because the initial hurdle of getting
+started seems too big.
 
-Assuming you might have the some problems I decided to do this:
+Assuming you might(?) have the some problems I decided to do this:
 
 As we both share love of all things Star Wars I decided to make a small frontend
 for the [swapi.co API](http://swapi.co) which would display random facts from
@@ -59,4 +60,5 @@ lazy to make a complete on website :D
 Happy Arbitrary day!
 
 P.S. send me a message on github and I´ll add you as a contributor on the repo.
-P.P.S also note that the API only allows 10000 calls per day.
+P.P.S also note that the API only allows 10.000 calls per day.
+P.P.P.s jeez i´m so nervous you won´t like it that I keep editing this readme!
